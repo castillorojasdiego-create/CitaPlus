@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1 class="mb-4">Editar Paciente</h1>
+
+{% with mensajes = get_flashed_messages(with_categories=true) %}
+    {% if mensajes %}
+        {% for categoria, mensaje in mensajes %}
+            <div class="alert alert-{{ categoria }} alert-dismissible fade show" role="alert">
+                {{ mensaje }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+    {% if error %}
+    <div class="alert alert-danger">
+        {{ error }}
+    </div>
+    {% endif %}
+
+    <form method="POST" action="/pacientes/actualizar/{{ paciente.id }}" class="card p-4 shadow-sm">
+
+        <div class="mb-3">
+            <label class="form-label">Nombre completo</label>
+            <input type="text" name="nombre" class="form-control" value="{{ paciente.nombre }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Cédula</label>
+            <input type="text" name="cedula" class="form-control" value="{{ paciente.cedula }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Teléfono</label>
+            <input type="text" name="telefono" class="form-control" value="{{ paciente.telefono }}" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Actualizar</button>
+        <a href="/pacientes" class="btn btn-secondary">Cancelar</a>
+    </form>
+{% endblock %}

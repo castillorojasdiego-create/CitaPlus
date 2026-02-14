@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1 class="mb-4">Gestión de Pacientes</h1>
+
+{% with mensajes = get_flashed_messages(with_categories=true) %}
+    {% if mensajes %}
+        {% for categoria, mensaje in mensajes %}
+            <div class="alert alert-{{ categoria }} alert-dismissible fade show" role="alert">
+                {{ mensaje }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+    <a href="/pacientes/registrar" class="btn btn-primary mb-3">Registrar Paciente</a>
+    <!--<a href="#" class="btn btn-primary mb-3">Registrar Paciente</a>-->
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Cédula</th>
+                <th>Teléfono</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in pacientes %}
+            <tr>
+                <td>{{ p.nombre }}</td>
+                <td>{{ p.cedula }}</td>
+                <td>{{ p.telefono }}</td>
+                <td>
+                    <a href="/pacientes/editar/{{ p.id }}" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="/pacientes/eliminar/{{ p.id }}" class="btn btn-sm btn-danger" onclick="return confirm('¿Seguro que deseas eliminar este paciente?');">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+{% endblock %}

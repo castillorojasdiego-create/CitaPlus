@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Administración de Usuarios{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+
+    <h1 class="mb-4">Administración de Usuarios</h1>
+
+    <a href="{{ url_for('registrar_usuario') }}" class="btn btn-primary mb-3">
+        Crear Usuario
+    </a>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Rol</th>
+                <th>Asociado a</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for u in usuarios %}
+            <tr>
+                <td>{{ u.nombre }}</td>
+                <td>{{ u.usuario }}</td>
+                <td>{{ u.rol }}</td>
+                <td>
+                    {% if u.rol == "medico" %}
+                        Médico: {{ u.medico_nombre }}
+                    {% elif u.rol == "paciente" %}
+                        Paciente: {{ u.paciente_nombre }}
+                    {% else %}
+                        ---
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="/usuarios/editar/{{ u.id }}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="/usuarios/eliminar/{{ u.id }}" class="btn btn-danger btn-sm"
+                       onclick="return confirm('¿Seguro que deseas eliminar este usuario?');">
+                       Eliminar
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}

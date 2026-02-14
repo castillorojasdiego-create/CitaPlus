@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Editar Cita{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+
+    <h1 class="mb-4">Editar Cita</h1>
+
+    <!-- Mensajes de error -->
+    {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST" action="/citas/actualizar/{{ cita.id }}">
+
+        <div class="mb-3">
+            <label class="form-label">Paciente</label>
+            <select name="paciente_id" class="form-select" required>
+                {% for p in pacientes %}
+                <option value="{{ p.id }}" {% if p.id == cita.paciente_id %}selected{% endif %}>
+                    {{ p.nombre }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Médico</label>
+            <select name="medico_id" class="form-select" required>
+                {% for m in medicos %}
+                <option value="{{ m.id }}" {% if m.id == cita.medico_id %}selected{% endif %}>
+                    {{ m.nombre }} ({{ m.especialidad }})
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Fecha</label>
+            <input type="date" name="fecha" class="form-control" value="{{ cita.fecha }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Hora</label>
+            <input type="time" name="hora" class="form-control" value="{{ cita.hora }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Motivo</label>
+            <textarea name="motivo" class="form-control" required>{{ cita.motivo }}</textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Actualizar</button>
+        <a href="/citas" class="btn btn-secondary">Cancelar</a>
+
+    </form>
+
+</div>
+{% endblock %}

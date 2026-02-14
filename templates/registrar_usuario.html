@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Registrar Usuario{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+
+    <h1 class="mb-4">Registrar Usuario</h1>
+
+    <form action="{{ url_for('guardar_usuario') }}" method="POST">
+
+        <div class="mb-3">
+            <label class="form-label">Nombre completo</label>
+            <input type="text" name="nombre" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Correo</label>
+            <input type="email" name="correo" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Contraseña</label>
+            <input type="password" name="password" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Rol</label>
+            <select name="rol" class="form-select" required>
+                <option value="admin">Administrador</option>
+                <option value="secretaria">Secretaria</option>
+                <option value="medico">Médico</option>
+                <option value="paciente">Paciente</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Asociar a Médico (solo si el rol es médico)</label>
+            <select name="medico_id" class="form-select">
+                <option value="">-- Ninguno --</option>
+                {% for m in medicos %}
+                <option value="{{ m.id }}">{{ m.nombre }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Asociar a Paciente (solo si el rol es paciente)</label>
+            <select name="paciente_id" class="form-select">
+                <option value="">-- Ninguno --</option>
+                {% for p in pacientes %}
+                <option value="{{ p.id }}">{{ p.nombre }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button class="btn btn-success">Guardar Usuario</button>
+    </form>
+
+</div>
+{% endblock %}

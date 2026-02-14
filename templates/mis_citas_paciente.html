@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Mis Citas{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+
+    <h1 class="mb-4">Mis Citas</h1>
+
+    {% if citas %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Médico</th>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                    <th>Motivo</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in citas %}
+                <tr>
+                    <td>{{ c.medico }}</td>
+                    <td>{{ c.fecha }}</td>
+                    <td>{{ c.hora }}</td>
+                    <td>{{ c.motivo }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="alert alert-info">
+            No tienes citas registradas.
+        </div>
+    {% endif %}
+
+</div>
+{% endblock %}

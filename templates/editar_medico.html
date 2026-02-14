@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Editar Médico{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+
+    <h1 class="mb-4">Editar Médico</h1>
+
+    <!-- Mensajes de error -->
+    {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST" action="/medicos/actualizar/{{ medico.id }}">
+
+        <div class="mb-3">
+            <label class="form-label">Nombre completo</label>
+            <input type="text" name="nombre" class="form-control" value="{{ medico.nombre }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Especialidad</label>
+            <input type="text" name="especialidad" class="form-control" value="{{ medico.especialidad }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Teléfono</label>
+            <input type="text" name="telefono" class="form-control" value="{{ medico.telefono }}" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Actualizar</button>
+        <a href="/medicos" class="btn btn-secondary">Cancelar</a>
+
+    </form>
+
+</div>
+{% endblock %}

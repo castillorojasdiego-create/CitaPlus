@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Editar Usuario{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+
+    <h1 class="mb-4">Editar Usuario</h1>
+
+    <form action="{{ url_for('actualizar_usuario', id=usuario.id) }}" method="POST">
+
+        <div class="mb-3">
+            <label class="form-label">Nombre completo</label>
+            <input type="text" name="nombre" class="form-control"
+                   value="{{ usuario.nombre }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Correo</label>
+            <input type="email" name="correo" class="form-control"
+                   value="{{ usuario.usuario }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Rol</label>
+            <select name="rol" class="form-select" required>
+                <option value="admin" {% if usuario.rol == "admin" %}selected{% endif %}>Administrador</option>
+                <option value="secretaria" {% if usuario.rol == "secretaria" %}selected{% endif %}>Secretaria</option>
+                <option value="medico" {% if usuario.rol == "medico" %}selected{% endif %}>Médico</option>
+                <option value="paciente" {% if usuario.rol == "paciente" %}selected{% endif %}>Paciente</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Asociar a Médico (si aplica)</label>
+            <select name="medico_id" class="form-select">
+                <option value="">-- Ninguno --</option>
+                {% for m in medicos %}
+                <option value="{{ m.id }}"
+                    {% if usuario.medico_id == m.id %}selected{% endif %}>
+                    {{ m.nombre }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Asociar a Paciente (si aplica)</label>
+            <select name="paciente_id" class="form-select">
+                <option value="">-- Ninguno --</option>
+                {% for p in pacientes %}
+                <option value="{{ p.id }}"
+                    {% if usuario.paciente_id == p.id %}selected{% endif %}>
+                    {{ p.nombre }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button class="btn btn-success">Actualizar Usuario</button>
+    </form>
+
+</div>
+{% endblock %}
