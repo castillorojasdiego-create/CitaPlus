@@ -4,6 +4,7 @@ import sqlite3
 import hashlib
 
 app = Flask(__name__)
+print(">>> CitaPlus está cargando rutas y módulos...")
 app.secret_key = "cita-plus-2025"
 
 login_manager = LoginManager()
@@ -833,7 +834,7 @@ def cambiar_contrasena_post():
     flash("Contraseña actualizada correctamente.", "success")
     return redirect(url_for("home"))
 
-
+print(">>> CitaPlus terminó de cargar. Iniciando servidor...")
 import os
 
 if __name__ == "__main__":
