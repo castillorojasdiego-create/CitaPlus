@@ -834,6 +834,8 @@ def cambiar_contrasena_post():
     return redirect(url_for("home"))
 
 
+import os
+
 if __name__ == "__main__":
-    print(">>> Flask está iniciando...")
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 8080))
+    app.run(host="0.0.0.0", port=port)
