@@ -3,16 +3,17 @@
 {% block title %}Administración de Usuarios{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
 
-    <h1 class="mb-4">Administración de Usuarios</h1>
+<h1 class="mb-4">Administración de Usuarios</h1>
 
-    <a href="{{ url_for('registrar_usuario') }}" class="btn btn-primary mb-3">
-        Crear Usuario
-    </a>
+<a href="{{ url_for('registrar_usuario') }}" class="btn btn-primary mb-3">
+    Crear Usuario
+</a>
 
-    <table class="table table-striped">
-        <thead>
+<div class="table-responsive">
+    <table class="table table-striped table-hover align-middle">
+
+        <thead class="table-primary">
             <tr>
                 <th>Nombre</th>
                 <th>Correo</th>
@@ -21,6 +22,7 @@
                 <th>Acciones</th>
             </tr>
         </thead>
+
         <tbody>
             {% for u in usuarios %}
             <tr>
@@ -46,7 +48,8 @@
             </tr>
             {% endfor %}
         </tbody>
-    </table>
 
+    </table>
 </div>
+
 {% endblock %}
