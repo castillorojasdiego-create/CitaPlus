@@ -1,28 +1,30 @@
 {% extends "base.html" %}
 
-{% block title %}Gestión de Citas{% endblock %}
+{% block title %}Administración de Citas{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
 
-    <h1 class="mb-4">Gestión de Citas</h1>
+<h1 class="mb-4">Gestión de Citas</h1>
 
-    <!-- Mensajes de éxito -->
-    {% with mensajes = get_flashed_messages(with_categories=true) %}
-        {% if mensajes %}
-            {% for categoria, mensaje in mensajes %}
-                <div class="alert alert-{{ categoria }} alert-dismissible fade show" role="alert">
-                    {{ mensaje }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                </div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
+<a href="{{ url_for('registrar_cita') }}" class="btn btn-primary mb-3">
+    Crear Cita
+</a>
 
-    <a href="/citas/registrar" class="btn btn-primary mb-3">Registrar Cita</a>
+{% with mensajes = get_flashed_messages(with_categories=true) %}
+    {% if mensajes %}
+        {% for categoria, mensaje in mensajes %}
+            <div class="alert alert-{{ categoria }} alert-dismissible fade show" role="alert">
+                {{ mensaje }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
 
-    <table class="table table-striped">
-        <thead>
+<div class="table-responsive">
+    <table class="table table-striped table-hover align-middle">
+
+        <thead class="table-primary">
             <tr>
                 <th>Paciente</th>
                 <th>Médico</th>
@@ -32,18 +34,18 @@
                 <th>Acciones</th>
             </tr>
         </thead>
+
         <tbody>
             {% for c in citas %}
             <tr>
-                <td>{{ c.paciente }}</td>
-                <td>{{ c.medico }}</td>
+                <td>{{ c.paciente_nombre }}</td>
+                <td>{{ c.medico_nombre }}</td>
                 <td>{{ c.fecha }}</td>
                 <td>{{ c.hora }}</td>
                 <td>{{ c.motivo }}</td>
                 <td>
                     <a href="/citas/editar/{{ c.id }}" class="btn btn-warning btn-sm">Editar</a>
-                    <a href="/citas/eliminar/{{ c.id }}"
-                       class="btn btn-danger btn-sm"
+                    <a href="/citas/eliminar/{{ c.id }}" class="btn btn-danger btn-sm"
                        onclick="return confirm('¿Seguro que deseas eliminar esta cita?');">
                        Eliminar
                     </a>
@@ -51,7 +53,8 @@
             </tr>
             {% endfor %}
         </tbody>
-    </table>
 
+    </table>
 </div>
+
 {% endblock %}
