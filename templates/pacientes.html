@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 
+{% block title %}Gestión de Pacientes{% endblock %}
+
 {% block content %}
-    <h1 class="mb-4">Gestión de Pacientes</h1>
+
+<h1 class="mb-4">Gestión de Pacientes</h1>
 
 {% with mensajes = get_flashed_messages(with_categories=true) %}
     {% if mensajes %}
@@ -14,11 +17,12 @@
     {% endif %}
 {% endwith %}
 
-    <a href="/pacientes/registrar" class="btn btn-primary mb-3">Registrar Paciente</a>
-    <!--<a href="#" class="btn btn-primary mb-3">Registrar Paciente</a>-->
+<a href="/pacientes/registrar" class="btn btn-primary mb-3">Registrar Paciente</a>
 
-    <table class="table table-striped">
-        <thead>
+<div class="table-responsive">
+    <table class="table table-striped table-hover align-middle">
+
+        <thead class="table-primary">
             <tr>
                 <th>Nombre</th>
                 <th>Cédula</th>
@@ -26,6 +30,7 @@
                 <th>Acciones</th>
             </tr>
         </thead>
+
         <tbody>
             {% for p in pacientes %}
             <tr>
@@ -33,12 +38,17 @@
                 <td>{{ p.cedula }}</td>
                 <td>{{ p.telefono }}</td>
                 <td>
-                    <a href="/pacientes/editar/{{ p.id }}" class="btn btn-sm btn-warning">Editar</a>
-                    <a href="/pacientes/eliminar/{{ p.id }}" class="btn btn-sm btn-danger" onclick="return confirm('¿Seguro que deseas eliminar este paciente?');">Eliminar</a>
+                    <a href="/pacientes/editar/{{ p.id }}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="/pacientes/eliminar/{{ p.id }}" class="btn btn-danger btn-sm"
+                       onclick="return confirm('¿Seguro que deseas eliminar este paciente?');">
+                       Eliminar
+                    </a>
                 </td>
             </tr>
             {% endfor %}
         </tbody>
 
     </table>
+</div>
+
 {% endblock %}
